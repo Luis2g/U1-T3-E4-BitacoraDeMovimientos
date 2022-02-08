@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casas</title>
+    
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    
+    <script src="../js/casas.js"></script>
+</head>
+<body>
+    <div class="row ms-2 me-2 mt-2">
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+            <button class="btn btn-light" onclick="consultarBitacora()"> <img src="../resources/bitacora.png" alt="" width="40px"> </button>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 text-center">
+            <h2>Casas</h2>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 text-end">
+            <button class="btn btn-warning" onclick="cerrarSesion()"> <img src="../resources/cerrar sesion.png" alt="" width="20px"> </button>
+        </div>
+    </div>
+
+    <div class="row mr-2 ms-2 me-2">
+        
+        <div class="col-12 mt-4">
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#miModal">
+                Registrar
+              </button>
+        </div>
+        <div class="col-12 mt-4">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Descripción</th>
+                        <th>Pisos</th>
+                        <th>Disponibilidad</th>
+                        <th>Dirección</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>La mejor casa del mundo</td>
+                        <td>2 Pisos</td>
+                        <td>DISPONIBLE</td>
+                        <td>Calle Chiapas #91 Colonia 3 de Mayo</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="miModal" tabindex="-1" aria-hidden="true" aria-labelledby="modalTitle" >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              ...
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-success">Registrar</button>
+            </div>
+          </div>
+        </div>
+    </div>
+</body>
+</html>
