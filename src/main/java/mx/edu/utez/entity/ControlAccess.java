@@ -29,4 +29,34 @@ public class ControlAccess implements Serializable{
 	@Column(name = "username")
 	private String username;
 
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getLastAccessDate() {
+		return lastAccessDate;
+	}
+
+	public void setLastAccessDate(String lastAccessDate) {
+		this.lastAccessDate = lastAccessDate;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
+	
+
 }
