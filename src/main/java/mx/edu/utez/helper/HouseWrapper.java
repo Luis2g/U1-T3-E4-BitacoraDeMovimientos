@@ -9,6 +9,7 @@ public class HouseWrapper {
 
 	private Address address;
 	private House house;
+	
 	public Address getAddress() {
 		return address;
 	}

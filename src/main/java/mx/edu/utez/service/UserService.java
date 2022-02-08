@@ -4,6 +4,8 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +41,7 @@ public class UserService {
 		userRepository.deleteById(id);
 	}
 	
+	@Transactional
 	public User login(User user) {
 		String encriptedPassword = Hashing.sha256()
 				.hashString(user.getPassword(), StandardCharsets.UTF_8)
