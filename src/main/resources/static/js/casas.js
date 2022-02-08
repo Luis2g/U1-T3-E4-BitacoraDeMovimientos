@@ -1,6 +1,6 @@
 const cerrarSesion = () => {
     alert('Cerrando sesión, espere...');
-    url = "../views/login.html"
+    url = "../login.html"
     var link = document.createElement('a');
         link.href = url;
         document.body.appendChild(link);
@@ -8,7 +8,7 @@ const cerrarSesion = () => {
 }
 
 const consultarBitacora = () => {
-    url = "../views/bitacora.html"
+    url = "../bitacora.html"
     var link = document.createElement('a');
         link.href = url;
         document.body.appendChild(link);
