@@ -39,4 +39,7 @@ public class UserService {
 		userRepository.deleteById(id);
 	}
 	
+	public User login(User user) {
+		return userRepository.login(user.getUsername(), user.getPassword());
+	}
 }
