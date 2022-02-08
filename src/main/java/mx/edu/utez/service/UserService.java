@@ -40,6 +40,10 @@ public class UserService {
 	}
 	
 	public User login(User user) {
+		String encriptedPassword = Hashing.sha256()
+				.hashString(user.getPassword(), StandardCharsets.UTF_8)
+				.toString();
+		user.setPassword(encriptedPassword);
 		return userRepository.login(user.getUsername(), user.getPassword());
 	}
 }
