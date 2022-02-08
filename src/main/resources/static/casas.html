@@ -33,7 +33,7 @@
               </button>
         </div>
         <div class="col-12 mt-4">
-            <table class="table table-striped">
+            <table class="table table-striped" ng-init="consultarCasas()">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -41,15 +41,17 @@
                         <th>Pisos</th>
                         <th>Disponibilidad</th>
                         <th>Dirección</th>
+                        <th>Modificar</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>La mejor casa del mundo</td>
-                        <td>2 Pisos</td>
-                        <td>DISPONIBLE</td>
-                        <td>Calle Chiapas #91 Colonia 3 de Mayo</td>
+                    <tr ng-repeat="casa in casas">
+                        <td>{{casa.id}}</td>
+                        <td>{{casa.description}}</td>
+                        <td>{{casa.flats}}</td>
+                        <td>{{casa.available === true ? 'DISPONIBLE' : 'NO DISPONIBLE'}}</td>
+                        <td>{{casa.address.colonia +", "+casa.address.municipio+", "+casa.address.state}}</td>
+                        <td><button type="button" ng-click="consultarCasaEspecifica(casa.id)" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modificacion">Modificar</button></td>
                     </tr>
                 </tbody>
             </table>
@@ -61,18 +63,68 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Registro de casas</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
               <form class="form-control">
-                  <input placeholder="Pisos">
-                  <input placeholder="Descripcion">
+                  <input type="number" class="form-control mb-2" ng-model="houseWrapper.house.flats" placeholder="Pisos">
+                  <input type="text" class="form-control mb-2" ng-model="houseWrapper.house.description" placeholder="Descripcion">
+                  
+<!--                  <input type="" class="form-control mb-2" ng-model="houseWrapper.house.available" placeholder="Disponibilidad">-->                
+                  <div class="form-check form-switch mb-2">
+					  <label class="form-check-label" for="flexSwitchCheckDefault">Disponibilidad</label>
+					  <input class="form-check-input" ng-model="houseWrapper.house.available" ng-true-value="true" ng-false-value="false" type="checkbox" id="flexSwitchCheckDefault">
+					</div>
+                  
+                  <input type="number" class="form-control mb-2" ng-model="houseWrapper.address.innerNumber" placeholder="Numero Interior" >
+                  <input type="number" class="form-control mb-2" ng-model="houseWrapper.address.outterNumber" placeholder="Numero Exterior" >
+                  <input type="number" class="form-control mb-2" ng-model="houseWrapper.address.zipCode" placeholder="Codigo Postal">
+                  <input type="text" class="form-control mb-2" ng-model="houseWrapper.address.street" placeholder="Calle" >
+                  <input type="text" class="form-control mb-2" ng-model="houseWrapper.address.colonia" placeholder="Colonia" >
+                  <input type="text" class="form-control mb-2" ng-model="houseWrapper.address.municipio" placeholder="Municipio">
+                  <input type="text" class="form-control mb-5" ng-model="houseWrapper.address.state" placeholder="Estado" >
               </form>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-              <button type="button" class="btn btn-success">Registrar</button>
+              <button type="button" ng-click="registrarCasa()" class="btn btn-success">Registrar</button>
+            </div>
+          </div>
+        </div>
+    </div>
+    
+    
+    <div class="modal fade" ng-init="consultaEspecificaCasas()" id="modificacion" tabindex="-1" aria-hidden="true" aria-labelledby="modalTitle" >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modificacion de casas</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form class="form-control">
+                  <input type="number" class="form-control mb-2" ng-model="houseWrapper.flats" placeholder="Pisos">
+                  <input type="text" class="form-control mb-2" ng-model="houseWrapper.description" placeholder="Descripcion">
+                  
+<!--                  <input type="" class="form-control mb-2" ng-model="houseWrapper.house.available" placeholder="Disponibilidad">-->                
+                  <div class="form-check form-switch mb-2">
+					  <label class="form-check-label" for="flexSwitchCheckDefault">Disponibilidad</label>
+					  <input class="form-check-input" ng-model="houseWrapper.available" ng-true-value="true" ng-false-value="false" type="checkbox" id="flexSwitchCheckDefault">
+					</div>
+                  
+                  <input type="number" class="form-control mb-2" ng-model="houseWrapper.address.innerNumber" placeholder="Numero Interior" >
+                  <input type="number" class="form-control mb-2" ng-model="houseWrapper.address.outterNumber" placeholder="Numero Exterior" >
+                  <input type="number" class="form-control mb-2" ng-model="houseWrapper.address.zipCode" placeholder="Codigo Postal">
+                  <input type="text" class="form-control mb-2" ng-model="houseWrapper.address.street" placeholder="Calle" >
+                  <input type="text" class="form-control mb-2" ng-model="houseWrapper.address.colonia" placeholder="Colonia" >
+                  <input type="text" class="form-control mb-2" ng-model="houseWrapper.address.municipio" placeholder="Municipio">
+                  <input type="text" class="form-control mb-5" ng-model="houseWrapper.address.state" placeholder="Estado" >
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+              <button type="button" ng-click="modificarCasa()" class="btn btn-success">Modificar</button>
             </div>
           </div>
         </div>
