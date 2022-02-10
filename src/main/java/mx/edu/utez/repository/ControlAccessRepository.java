@@ -11,7 +11,5 @@ import mx.edu.utez.entity.ControlAccess;
 @Repository
 public interface ControlAccessRepository extends JpaRepository<ControlAccess, Long> {
 
-//	@Procedure(procedureName = "login")
-//	User getTotalCarsByModelProcedureName(String name, String password);
 	
 }

@@ -53,10 +53,4 @@ public class ControlAccess implements Serializable{
 		this.username = username;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-	
-	
-
 }
