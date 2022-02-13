@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -34,7 +32,7 @@ public class LoggedHouse implements Serializable{
 	@Column(name = "action")
 	private String action;
 	
-	@Column(name = "house_id")
+	@Column(name = "house_id")	
 	private int houseId;
 	
 	@Column(name = "flats")
@@ -46,9 +44,15 @@ public class LoggedHouse implements Serializable{
 	@Column(name = "available")
 	private boolean available;
 	
-	@OneToOne
-	@JoinColumn(name = "loggedAddress")
-	private LoggedAddress loggedAddress;
+	@Column(name = "logged_address")
+	private int loggedAddress;
+	
+//	@OneToOne
+//	@JoinColumns({
+//		@JoinColumn(name = "id"),
+//		@JoinColumn(name = "loggedAddress")		
+//	})
+//	private LoggedAddress loggedAddress;
 
 	public long getId() {
 		return id;
@@ -114,11 +118,11 @@ public class LoggedHouse implements Serializable{
 		this.available = available;
 	}
 
-	public LoggedAddress getLoggedAddress() {
+	public int getLoggedAddress() {
 		return loggedAddress;
 	}
 
-	public void setLoggedAddress(LoggedAddress loggedAddress) {
+	public void setLoggedAddress(int loggedAddress) {
 		this.loggedAddress = loggedAddress;
 	}
 
