@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es" ng-app="app">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <title>Control de acceso</title>
+</head>
+
+<body ng-controller="HouseController" ng-init="getUserLogs()">
+
+    <div class="container">
+
+        <div class="row ms-2 me-2 mt-2">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                <button class="btn btn-light" ng-click="moveToCasas()"><b> <h4> Casas </h4> </b> <i data-feather="home" style="width:35px; height: 35px;" ></i></button>
+                <button class="btn btn-light" ng-click="moveToBitacora()"><b> <h4> Bitacora</h4> </b> <i data-feather="book-open"
+                    style="width: 35px; height: 35px;"></i></button>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 text-center">
+                <h2>Control de accesos</h2>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 text-end">
+                <p id="username" >{{ user.name }}</p>
+                <button class="btn btn-warning" onclick="cerrarSesion()"> <img src="/images/cerrar sesion.png" alt=""
+                        width="20px"> </button>
+            </div>
+        </div>    
+
+        <div class="row ms-2 me-2 mt-2">
+            <div class="col-12 mt-4">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Ultimo accesso</th>
+                            <th>Usuario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="log in logs.users">
+                            <td ng-bind="($index + 1)"></td>
+                            <td ng-bind="log.lastAccessDate">Disponible</td>
+                            <td ng-bind="log.username">Disponible</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        
+    </div>
+    <script src="/js/angular.min.js"></script>
+    <script src="/js/control/app.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js"
+        integrity="sha512-7x3zila4t2qNycrtZ31HO0NnJr8kg2VI67YLoRSyi9hGhRN66FHYWr7Axa9Y1J9tGYHVBPqIjSE1ogHrJTz51g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        feather.replace();
+    </script>
+</body>
+
+</html>

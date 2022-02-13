@@ -2,10 +2,7 @@ package mx.edu.utez.entity;
 
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.Data;
-
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -13,7 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
 @Entity
 @Table(name = "loggedAddresses")
@@ -36,9 +32,6 @@ public class LoggedAddress implements Serializable{
 	@Column(name = "action")
 	private String action;
 	
-	@Column(name = "address_id")
-	private int addressId;
-	
 	@Column(name = "innerNumber")
 	private int innerNumber;
 	
@@ -60,17 +53,8 @@ public class LoggedAddress implements Serializable{
 	@Column(name = "state")
 	private String state;
 	
-	@OneToOne(mappedBy = "loggedAddress")
-	@JsonIgnore
-	private LoggedHouse loggedHouse;
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
+	@Column(name = "address_id")
+	private long addressId;
 
 	public String getUsername() {
 		return username;
@@ -96,13 +80,6 @@ public class LoggedAddress implements Serializable{
 		this.action = action;
 	}
 
-	public int getAddressId() {
-		return addressId;
-	}
-
-	public void setAddressId(int addressId) {
-		this.addressId = addressId;
-	}
 
 	public int getInnerNumber() {
 		return innerNumber;
@@ -158,14 +135,6 @@ public class LoggedAddress implements Serializable{
 
 	public void setState(String state) {
 		this.state = state;
-	}
-
-	public LoggedHouse getLoggedHouse() {
-		return loggedHouse;
-	}
-
-	public void setLoggedHouse(LoggedHouse loggedHouse) {
-		this.loggedHouse = loggedHouse;
 	}
 
 	public static long getSerialversionuid() {

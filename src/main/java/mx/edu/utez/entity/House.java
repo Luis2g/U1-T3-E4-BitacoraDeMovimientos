@@ -24,7 +24,6 @@ public class House implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private long id;
-
 	
 	@Column(name = "flats", nullable = false)
 	private int flats;
