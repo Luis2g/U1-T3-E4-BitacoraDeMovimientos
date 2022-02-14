@@ -1,6 +1,6 @@
-var app = angular.module('app', []);
+var app = angular.module('app', ['siTable']);
 
-app.controller('HouseController', function ($scope, $http, $sce) {
+app.controller('HouseController', function ($scope, $http) {
 
     const raiz = "http://localhost:8080/databaseLog/"
 
@@ -30,34 +30,119 @@ app.controller('HouseController', function ($scope, $http, $sce) {
         }).then(function (response) {
             if (response) {
                 console.log(response);
-                localStorage.setItem("username", response.data.name);
-                console.log($scope.user.name);
-                window.location.replace('/view/casas.html');
+                Swal.fire({
+					  icon: 'success',
+					  title: 'Iniciando sesion',
+					  showConfirmButton: false,
+					  timer: 2000
+					});
+                localStorage.setItem("username", response.data.username);
+                setTimeout(function(){
+					window.location.replace('/view/casas.html');
+				}, 2000);
             } else {
-                console.log("Sin permisos");
+                Swal.fire({
+					  icon: 'warning',
+					  title: 'Verifique sus datos',
+					  text:'Verifique que su usuario y contraseña sean correctos.',
+					  showConfirmButton: false,
+					  timer: 3000
+					});
             }
-        })
+        }).catch(function(err) {
+			Swal.fire({
+					  icon: 'warning',
+					  title: 'Verifique sus datos',
+					  text:'Verifique que su usuario y contraseña sean correctos.',
+					  showConfirmButton: false,
+					  timer: 3000
+			});
+		});
     }
+    
+    
+    // Registro de usuario
+    $scope.registro = () => {
+		var validacionContrasenia = false;
+		console.log($scope.userRegistro);
+		if($scope.userRegistro.password == $scope.validacionContrasenia){
+			$http({
+			method: 'POST',
+			url: raiz + "users",
+			data: JSON.stringify($scope.userRegistro)
+			}).then(function (response){
+				if(response){
+					Swal.fire({
+					  icon: 'success',
+					  title: 'Registrando usuario',
+					  showConfirmButton: false,
+					  timer: 2000
+					});
+	                setTimeout(function(){
+						window.location.replace('/view/login.html');
+					}, 2000);
+				}else{
+					console.log("Error");
+				}
+			}).catch(function (error){
+			console.log(error);
+			Swal.fire({
+					  icon: 'error',
+					  title: 'Error '+error.data.status,
+					  text:'Ocurrio un error, comunicate con el administrador',
+					  showConfirmButton: false,
+					  timer: 2500
+					});
+		});
+			
+		}else{
+			Swal.fire({
+					  icon: 'warning',
+					  title: 'Contraseñas no coinciden',
+					  text:'Las contraseñas no coinciden, verifica nuevamente.',
+					  showConfirmButton: false,
+					  timer: 2500
+					});
+		}
+	}
 
 
     // Registro de una casa
     $scope.registrarCasa = () => {
         // $scope.houseForRegistration = $scope.formatWrapper($scope.houseForRegistration)
-
+		$scope.houseWrapper.house.available = true;
         $http({
             method: 'POST',
             url: raiz + "houses/" + localStorage.getItem("username"),
             data: JSON.stringify($scope.houseWrapper)
         }).then(function (response) {
-            $('registroModal').modal('hide');
             $scope.houseWrapper = {};
             if (response) {
                 console.log(response);
+                Swal.fire({
+					  icon: 'success',
+					  title: 'Registrada',
+					  text:'Se ha registrado la casa de manera exitosa.',
+					  showConfirmButton: false,
+					  timer: 2000
+					});
+					$(function () {
+				   $('#registroModal').modal('toggle');
+				});
                 $scope.casas.push(response.data);
             } else {
                 console.log("Sin permisos");
             }
-        })
+        }).catch(function (error){
+			console.log(error);
+			Swal.fire({
+					  icon: 'error',
+					  title: 'Error '+error.data.status,
+					  text:'Ocurrio un error, comunicate con el administrador',
+					  showConfirmButton: false,
+					  timer: 2500
+					});
+		});
     }
 
     // Consultar casas
@@ -141,14 +226,16 @@ app.controller('HouseController', function ($scope, $http, $sce) {
                         $scope.casas.splice($scope.casas.indexOf(casa), 1, houseToReplace);
                     }
                 })
-
+				$(function () {
+				   $('#modificacion').modal('toggle');
+				});
 
                 Swal.fire({
-                    position: 'top-end',
                     icon: 'success',
-                    title: 'La acción ha sido realizada exitosamente.',
+                    title: 'Modificación',
+                    text:'Se ha modificado la casa de manera exitosa.',
                     showConfirmButton: false,
-                    timer: 2000
+                    timer: 2500
                 });
 
             } else {
@@ -164,8 +251,8 @@ app.controller('HouseController', function ($scope, $http, $sce) {
             text: "¿Estas seguro que deseas eliminar este registro?",
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
+            confirmButtonColor: '#3085d6',
             confirmButtonText: 'Eliminar'
         }).then((result) => {
             if (result.isConfirmed) {
@@ -180,11 +267,11 @@ app.controller('HouseController', function ($scope, $http, $sce) {
                     $scope.casas.splice($scope.casas.indexOf(casaToDelete), 1)
 
                     Swal.fire({
-                        position: 'top-end',
                         icon: 'success',
-                        title: 'La casa se ha eliminado correctamente',
+                        title: 'Eliminado',
+                        text: 'La casa se ha eliminado correctamente.',
                         showConfirmButton: false,
-                        timer: 2000
+                        timer: 2500
                     });
 
                 });
@@ -253,6 +340,11 @@ app.controller('HouseController', function ($scope, $http, $sce) {
     $scope.moveToUsers = () => {
         window.location.replace("http://localhost:8080/view/controlAccess.html");
     }
+    
+    $scope.cerrarSesion = () => {
+		window.location.replace("http://localhost:8080/view/login.html");
+		localStorage.setItem("username", "");
+	}
 
     $scope.showHouseInformation = (house) => {
         $scope.log = house;

@@ -3,37 +3,46 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
     <title>Casas</title>
 </head>
 
 <body ng-controller="HouseController" ng-init="getLogs()">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<div class="container-fluid">
+				<a class="navbar-brand btn" ng-click="moveToCasas()">Inicio</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+					aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item">
+							<a class="nav-link active btn" aria-current="page" ng-click="moveToBitacora()">Bitacora</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active btn" aria-current="page" ng-click="moveToUsers()">Accesos</a>
+						</li>
+					</ul>
+					<form class="d-flex">
+						<input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar" ng-init="filterText = {}" ng-model="filterText.$">
+						<button class="btn btn-light" ng-click="cerrarSesion()"><img src="/images/cerrar sesion.png" alt=""
+						width="20px"></button>
+					</form>
+				</div>
+			</div>
+		</nav>
 
     <div class="container">
 
         <div class="row ms-2 me-2 mt-2">
-            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
-                <button class="btn btn-light" ng-click="moveToCasas()"><b> <h4> Casas</h4> </b> <i data-feather="home" style="width:35px; height: 35px;" ></i></button>
-                <button class="btn btn-light" ng-click="moveToUsers()"><b> <h4> Accesos</h4> </b> <i data-feather="users" style="width:35px; height: 35px;" ></i></button>
-
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 text-center">
-                <h2>Bitacora</h2>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 text-end">
-                <p id="username" >{{ user.name }}</p>
-                <button class="btn btn-warning" onclick="cerrarSesion()"> <img src="/images/cerrar sesion.png" alt=""
-                        width="20px"> </button>
-            </div>
-        </div>    
-
-        <div class="row ms-2 me-2 mt-2">
             <div class="col-12 mt-4">
-                <table class="table table-striped">
+                <table class="table table-striped" si-table>
                     <thead>
                         <tr>
                             <th>#</th>
@@ -46,7 +55,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="log in logs.houses">
+                        <tr si-sortable ng-repeat="log in logs.houses | filter:filterText | orderBy:'-dateOfAction'">
                             <td ng-bind="($index + 1)"></td>
                             <td ng-bind="log.action" >Disponible</td>
                             <td ng-bind="log.dateOfAction">Disponible</td>
@@ -56,24 +65,31 @@
                             <td ng-if="!log.available">No se encuentra disponible</td>
                             <td class="text-center"><button class="btn btn-primary"
                                     ng-click="showHouseInformation(log)"><i data-feather="search"></i></button></td>
-                        </tr>
+                        </tr >
                     </tbody>
+                    <tfoot>
+					    <tr class="">
+					        <td colspan="8">
+					            <si-table-pagination limit="5" indices="5" first-text="Inicio"
+                                                last-text="Final"
+                                                previous-text="«" next-text="»"/>
+					        </td>
+					    </tr >
+					</tfoot>
                 </table>
             </div>
         </div>
 
 
-        <div class="modal fade" id="houseInformation" tabindex="-1" role="dialog"
-            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal fade bd-example-modal-lg" id="houseInformation" tabindex="-1" role="dialog"
+            aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLongTitle">
                             <div class="text-center">Informacion de la casa</div>
                         </h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="row">
@@ -89,8 +105,11 @@
                                 <p><b>Usuario</b></p>
                                 {{log.username}}
                             </div>
-                            <hr style="width:80%;  border-color: #DCDEE2">
-                            <div class="col-3">
+                            <hr style="width:95%;  border-color: #DCDEE2"><br>
+                            <div class="col-12 mb-2">
+								<h4>Información:</h4>     	
+                        	</div>
+                            <div class="col-12 mb-4">
                                 <p><b>Descripción</b></p>
                                 {{log.description}}
                             </div>
@@ -98,32 +117,32 @@
                                 <p><b>Pisos</b></p>
                                 {{log.flats}}
                             </div>
-                            <div class="col-3">
+                            <div class="col-3 mb-4">
                                 <p><b>Disponibilidad</b></p>
                                 <div ng-if="log.available">Disponible</div>
                                 <div ng-if="!log.available">No Diponible</div>
                             </div>
-                            <div class="col-3">
+                            <div class="col-3 mb-4">
                                 <p><b>Estado</b></p>
                                 {{log.address.state}}
                             </div>
-                            <div class="col-3">
+                            <div class="col-3 mb-4">
                                 <p><b>Municipio</b></p>
                                 {{log.address.municipio}}
                             </div>
-                            <div class="col-3">
+                            <div class="col-3 mb-4">
                                 <p><b>Colonia</b></p>
                                 {{log.address.colonia}}
                             </div>
-                            <div class="col-3">
+                            <div class="col-3 mb-4">
                                 <p><b>Calle</b></p>
                                 {{log.address.street}}
                             </div>
-                            <div class="col-3">
+                            <div class="col-3 mb-4">
                                 <p><b>No. Interior</b></p>
                                 {{log.address.innerNumber}}
                             </div>
-                            <div class="col-3">
+                            <div class="col-3 mb-4">
                                 <p><b>No. Exterior</b></p>
                                 {{log.address.outterNumber}}
                             </div>
@@ -131,33 +150,27 @@
                                 <p><b>Codigo postal</b></p>
                                 {{log.address.zipCode}}
                             </div>
-
-
-
-
-                        </div>
+                        <//div>
                     </div>
-                    <div class="modal-footer">
-
-                    </div>
-                </div>
+                <//div>
             </div>
         </div>
     </div>
     <script src="/js/angular.min.js"></script>
-    <script src="/js/control/app.js"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js"
-        integrity="sha512-7x3zila4t2qNycrtZ31HO0NnJr8kg2VI67YLoRSyi9hGhRN66FHYWr7Axa9Y1J9tGYHVBPqIjSE1ogHrJTz51g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="/js/control/app.js"></script>
+	<script src="/js/si-table.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js"
+		integrity="sha512-7x3zila4t2qNycrtZ31HO0NnJr8kg2VI67YLoRSyi9hGhRN66FHYWr7Axa9Y1J9tGYHVBPqIjSE1ogHrJTz51g=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js"
+		integrity="sha512-7x3zila4t2qNycrtZ31HO0NnJr8kg2VI67YLoRSyi9hGhRN66FHYWr7Axa9Y1J9tGYHVBPqIjSE1ogHrJTz51g=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         feather.replace();
     </script>

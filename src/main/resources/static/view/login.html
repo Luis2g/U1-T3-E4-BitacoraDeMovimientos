@@ -9,27 +9,32 @@
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/angular.min.js"></script>
     <script src="/js/control/app.js"></script>
+	<script src="/js/si-table.js"></script>
 </head>
 <body ng-controller="HouseController">
     <div class="row col-12 mt-5 d-flex align-items-center">
-        <div class="col-xl col-lg col-md-4 col-sm-3">
+        <div class="col-xl col-lg col-md col-sm">
 
         </div>
-        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 text-center">
-            <h2 class="mb-5">Inicio de Sesión</h2>
-
-            <div class="input-group mb-3">
-                <input class="form-control" type="text" ng-model="user.username" id="usuario" name="usuario" placeholder="Usuario">
-            </div>
-            <div class="input-group mb-5">
-                <input class="form-control" type="password" ng-model="user.password" name="contrasenia" id="contrasenia" placeholder="Contraseña">
-            </div>
-            <button class="btn btn-success" ng-click="login()">Iniciar sesión</button>
+        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-10 text-center">
+        	<form>
+	            <h2 class="mb-5">Inicio de Sesión</h2>
+	
+	            <div class="input-group mb-3">
+	                <input class="form-control" type="text" ng-model="user.username" id="usuario" name="usuario" placeholder="Usuario">
+	            </div>
+	            <div class="input-group mb-5">
+	                <input class="form-control" type="password" ng-model="user.password" name="contrasenia" id="contrasenia" placeholder="Contraseña">
+	            </div>
+	            <button class="btn btn-success" ng-click="login()">Iniciar sesión</button><br><br>
+	            <a class="btn btn-link" href="../view/registro.html">¿No tienes cuenta?, Registrate</a>
+            </form>
         </div>
-        <div class="col-xl col-lg col-md-4 col-sm-3">
+        <div class="col-xl col-lg col-md col-sm">
 
         </div>
     </div>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js" integrity="sha512-7x3zila4t2qNycrtZ31HO0NnJr8kg2VI67YLoRSyi9hGhRN66FHYWr7Axa9Y1J9tGYHVBPqIjSE1ogHrJTz51g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 </html>
