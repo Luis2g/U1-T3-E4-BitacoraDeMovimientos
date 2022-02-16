@@ -9,6 +9,25 @@
 		integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
     <title>Control de acceso</title>
+    <style>
+    	.paginador{
+			background-color: #1f1e1e;
+			color: white;
+			text-decoration: none;
+			padding: 5px;
+			margin: 2px;
+			border-radius: 2px;
+			font-weight: 700;
+		}
+		.paginador:hover{
+			background-color:  white;
+			color: #1f1e1e;text-decoration: none;
+			padding: 5px;
+			margin: 2px;
+			border-radius: 2px;
+			font-weight: 700;
+		}
+    </style>
 </head>
 
 <body ng-controller="HouseController" ng-init="getUserLogs()"><nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -40,7 +59,7 @@
     <div class="container">
 
         <div class="row ms-2 me-2 mt-2">
-            <div class="col-12 mt-4">
+            <div class="col-12 mt-4 table-responsive">
                 <table class="table table-striped" si-table>
                     <thead>
                         <tr>

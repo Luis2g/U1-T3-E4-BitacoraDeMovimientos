@@ -9,6 +9,27 @@
 		integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
     <title>Casas</title>
+    
+    <style>
+    	.paginador{
+			background-color: #1f1e1e;
+			color: white;
+			text-decoration: none;
+			padding: 5px;
+			margin: 2px;
+			border-radius: 2px;
+			font-weight: 700;
+		}
+		.paginador:hover{
+			background-color:  white;
+			color: #1f1e1e;text-decoration: none;
+			padding: 5px;
+			margin: 2px;
+			border-radius: 2px;
+			font-weight: 700;
+		}
+    </style>
+    
 </head>
 
 <body ng-controller="HouseController" ng-init="getLogs()">
@@ -41,7 +62,7 @@
     <div class="container">
 
         <div class="row ms-2 me-2 mt-2">
-            <div class="col-12 mt-4">
+            <div class="col-12 mt-4 table-responsive">
                 <table class="table table-striped" si-table>
                     <thead>
                         <tr>
@@ -50,7 +71,7 @@
                             <th>Fecha y hora</th>
                             <th>Usuario</th>
                             <th>Identificador</th>
-                            <th>Descripcion</th>
+                            <th>Descripción</th>
                             <th class="text-center">Datos del registro</th>
                         </tr>
                     </thead>
@@ -87,14 +108,17 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLongTitle">
-                            <div class="text-center">Informacion de la casa</div>
+                            <div class="text-center">Información de bitácora</div>
                         </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="row">
+                        <div class="col-12 mb-2">
+								<h5>Información de la acción:</h5> 	
+                        	</div>
                             <div class="col-4">
-                                <p><b>Action</b></p>
+                                <p><b>Acción</b></p>
                                 {{log.action}}
                             </div>
                             <div class="col-4">
@@ -105,38 +129,22 @@
                                 <p><b>Usuario</b></p>
                                 {{log.username}}
                             </div>
-                            <hr style="width:95%;  border-color: #DCDEE2"><br>
+                            <hr style="width:95%;  border-color: #DCDEE2; margin-top: 15px"><br>
                             <div class="col-12 mb-2">
-								<h4>Información:</h4>     	
+								<h5>Información de la casa:</h5>    	
                         	</div>
-                            <div class="col-12 mb-4">
+                            <div class="col-9 mb-4">
                                 <p><b>Descripción</b></p>
                                 {{log.description}}
-                            </div>
-                            <div class="col-3">
-                                <p><b>Pisos</b></p>
-                                {{log.flats}}
                             </div>
                             <div class="col-3 mb-4">
                                 <p><b>Disponibilidad</b></p>
                                 <div ng-if="log.available">Disponible</div>
                                 <div ng-if="!log.available">No Diponible</div>
                             </div>
-                            <div class="col-3 mb-4">
-                                <p><b>Estado</b></p>
-                                {{log.address.state}}
-                            </div>
-                            <div class="col-3 mb-4">
-                                <p><b>Municipio</b></p>
-                                {{log.address.municipio}}
-                            </div>
-                            <div class="col-3 mb-4">
-                                <p><b>Colonia</b></p>
-                                {{log.address.colonia}}
-                            </div>
-                            <div class="col-3 mb-4">
-                                <p><b>Calle</b></p>
-                                {{log.address.street}}
+                            <div class="col-3">
+                                <p><b>Pisos</b></p>
+                                {{log.flats}}
                             </div>
                             <div class="col-3 mb-4">
                                 <p><b>No. Interior</b></p>
@@ -147,10 +155,26 @@
                                 {{log.address.outterNumber}}
                             </div>
                             <div class="col-3">
-                                <p><b>Codigo postal</b></p>
+                                <p><b>Código postal</b></p>
                                 {{log.address.zipCode}}
                             </div>
-                        <//div>
+                            <div class="col-3 mb-4">
+                                <p><b>Calle</b></p>
+                                {{log.address.street}}
+                            </div>
+                            <div class="col-3 mb-4">
+                                <p><b>Colonia</b></p>
+                                {{log.address.colonia}}
+                            </div>
+                            <div class="col-3 mb-4">
+                                <p><b>Municipio</b></p>
+                                {{log.address.municipio}}
+                            </div>
+                            <div class="col-3 mb-4">
+                                <p><b>Estado</b></p>
+                                {{log.address.state}}
+                            </div>
+                        </ss/div>
                     </div>
                 <//div>
             </div>
