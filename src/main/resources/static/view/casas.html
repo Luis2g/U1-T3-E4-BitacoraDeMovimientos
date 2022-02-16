@@ -22,6 +22,26 @@
 			border-radius: 50%;
 			border: solid 1px #45ad18;
 		}
+		label {
+			font-weight: 700;
+		}
+		.paginador{
+			background-color: #1f1e1e;
+			color: white;
+			text-decoration: none;
+			padding: 5px;
+			margin: 2px;
+			border-radius: 2px;
+			font-weight: 700;
+		}
+		.paginador:hover{
+			background-color:  white;
+			color: #1f1e1e;text-decoration: none;
+			padding: 5px;
+			margin: 2px;
+			border-radius: 2px;
+			font-weight: 700;
+		}
 	</style>
 
 </head>
@@ -78,12 +98,12 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr si-sortable ng-repeat="casa in casas | filter:filterText">
+						<tr si-sortable ng-repeat="casa in casas | filter:filterText | orderBy:'-id'">
 							<td ng-bind="($index + 1)"></td >
 							<td ng-bind="casa.description">Disponible</td >
 							<td ng-bind="casa.flats" class="text-center">Disponible</td>
 							<td ng-bind="casa.available === true ? 'DISPONIBLE' : 'NO DISPONIBLE'">Disponible</td >
-							<td ng-bind="casa.address.colonia + ' ' + casa.address.municipio + ' ' + casa.address.state">Disponible</td >
+							<td ng-bind="casa.address.colonia + ', ' + casa.address.municipio + ', ' + casa.address.state">Disponible</td >
 							<td class="text-center">
 								<button type="button" ng-click="consultarCasaEspecifica(casa.id)"
 									class="btn btn-warning mb-2" data-bs-toggle="modal" data-bs-target="#modificacion">
@@ -97,7 +117,7 @@
 					</tbody>
 					<tfoot>
 						<tr>
-							<td colspan="8">
+							<td colspan="8" >
 								<si-table-pagination limit="5" indices="5" first-text="Inicio" last-text="Final"
 									previous-text="«" next-text="»" />
 							</td>
@@ -188,13 +208,14 @@
 			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Modificacion de casas</h5>
+						<h5 class="modal-title" id="exampleModalLabel">Modificación de casas</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
 						<form>
 							<div class="row">
 								<div class="col-4">
+									<label>Pisos:</label>
 									<input type="number" class="form-control mb-2" ng-model="editedHouse.flats"
 
 										placeholder="Pisos">
@@ -205,27 +226,27 @@
 								<!--                  <input type="" class="form-control mb-2" ng-model="editedHouse.house.available" placeholder="Disponibilidad">-->
 
 								<div class="col-4">
+									<label>No. Interior:</label>
 									<input type="number" class="form-control mb-2"
 										ng-model="editedHouse.address.innerNumber" placeholder="Numero Interior">
 								</div>
 
 								<div class="col-4">
+									<label>No. Exterior:</label>
 									<input type="number" class="form-control mb-2"
 										ng-model="editedHouse.address.outterNumber" placeholder="Numero Exterior">
 								</div>
 
 								<div class="col-6">
+									<label>Código postal:</label>
 									<input type="number" class="form-control mb-2"
 										ng-model="editedHouse.address.zipCode" placeholder="Codigo Postal">
 								</div>
 
-								<div class="col-2 mt-2">
+								<div class="col-2">
 									<label>Disponibilidad</label>
-								</div>
 								
-
-								<div class="col-2 mt-2">
-									<div class="form-check form-switch mb-2">
+									<div class="form-check form-switch mt-2 mb-2">
 										<input class="form-check-input" ng-model="editedHouse.available"
 											ng-true-value="true" ng-false-value="false" type="checkbox"
 											id="flexSwitchCheckDefault">
@@ -233,26 +254,31 @@
 								</div>
 
 								<div class="col-6">
+									<label>Calle:</label>
 									<input type="text" class="form-control mb-2" ng-model="editedHouse.address.street"
 										placeholder="Calle">
 								</div>
 
 								<div class="col-6">
+									<label>Colonia:</label>
 									<input type="text" class="form-control mb-2" ng-model="editedHouse.address.colonia"
 										placeholder="Colonia">
 								</div>
 
 								<div class="col-6">
+									<label>Municipio:</label>
 									<input type="text" class="form-control mb-2"
 										ng-model="editedHouse.address.municipio" placeholder="Municipio">
 								</div>
 
 								<div class="col-6">
+									<label>Estado:</label>
 									<input type="text" class="form-control mb-2" ng-model="editedHouse.address.state"
 										placeholder="Estado">
 								</div>
 
 								<div class="col-12">
+									<label>Descripción:</label>
 									<textarea type="text" class="form-control mb-3" ng-model="editedHouse.description"
 										placeholder="Descripcion"></textarea>
 								</div>
